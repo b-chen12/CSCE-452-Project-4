@@ -3,7 +3,7 @@
 extract zip folder
 
 in command line:
-cd ros2_proj4a
+cd ros2_proj4a '\n'
 source install/setup.bash
 colcon build
 ros2 launch proj4a launch.py
