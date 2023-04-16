@@ -10,7 +10,7 @@ source install/setup.bash
 
 colcon build
 
-ros2 launch proj4a launch.py
+ros2 launch simulation launch.py
 
 to run rviz2: ros2 run rviz2 rviz2
 
