@@ -1,0 +1,28 @@
+[1.484s] Invoking command in '/home/osboxes/ros2_proj4a/build/simulation': PYTHONPATH=/home/osboxes/ros2_proj4a/build/simulation/prefix_override:/home/osboxes/ros2_proj4a/install/simulation/lib/python3.10/site-packages:${PYTHONPATH} /usr/bin/python3 setup.py develop --editable --build-directory /home/osboxes/ros2_proj4a/build/simulation/build --no-deps install_data
+[1.833s] running develop
+[2.054s] running egg_info
+[2.055s] creating simulation.egg-info
+[2.055s] writing simulation.egg-info/PKG-INFO
+[2.056s] writing dependency_links to simulation.egg-info/dependency_links.txt
+[2.056s] writing entry points to simulation.egg-info/entry_points.txt
+[2.056s] writing requirements to simulation.egg-info/requires.txt
+[2.057s] writing top-level names to simulation.egg-info/top_level.txt
+[2.059s] writing manifest file 'simulation.egg-info/SOURCES.txt'
+[2.072s] reading manifest file 'simulation.egg-info/SOURCES.txt'
+[2.072s] writing manifest file 'simulation.egg-info/SOURCES.txt'
+[2.075s] running build_ext
+[2.076s] Creating /home/osboxes/ros2_proj4a/install/simulation/lib/python3.10/site-packages/simulation.egg-link (link to .)
+[2.077s] Installing project4a script to /home/osboxes/ros2_proj4a/install/simulation/lib/simulation
+[2.078s] 
+[2.079s] Installed /home/osboxes/ros2_proj4a/build/simulation
+[2.079s] running install_data
+[2.079s] creating /home/osboxes/ros2_proj4a/install/simulation/share/ament_index
+[2.080s] creating /home/osboxes/ros2_proj4a/install/simulation/share/ament_index/resource_index
+[2.080s] creating /home/osboxes/ros2_proj4a/install/simulation/share/ament_index/resource_index/packages
+[2.088s] copying resource/simulation -> /home/osboxes/ros2_proj4a/install/simulation/share/ament_index/resource_index/packages
+[2.088s] copying package.xml -> /home/osboxes/ros2_proj4a/install/simulation/share/simulation
+[2.089s] copying launch/disc_robot.py -> /home/osboxes/ros2_proj4a/install/simulation/share/simulation
+[2.098s] copying launch/brick.world -> /home/osboxes/ros2_proj4a/install/simulation/share/simulation
+[2.099s] copying launch/normal.robot -> /home/osboxes/ros2_proj4a/install/simulation/share/simulation
+[2.099s] copying launch/launch.py -> /home/osboxes/ros2_proj4a/install/simulation/share/simulation
+[2.142s] Invoked command in '/home/osboxes/ros2_proj4a/build/simulation' returned '0': PYTHONPATH=/home/osboxes/ros2_proj4a/build/simulation/prefix_override:/home/osboxes/ros2_proj4a/install/simulation/lib/python3.10/site-packages:${PYTHONPATH} /usr/bin/python3 setup.py develop --editable --build-directory /home/osboxes/ros2_proj4a/build/simulation/build --no-deps install_data
