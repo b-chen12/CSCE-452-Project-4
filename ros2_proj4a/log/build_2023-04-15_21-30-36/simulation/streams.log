@@ -1,0 +1,38 @@
+[1.078s] Invoking command in '/home/osboxes/ros2_proj4a/build/simulation': PYTHONPATH=/home/osboxes/ros2_proj4a/build/simulation/prefix_override:/home/osboxes/ros2_proj4a/install/simulation/lib/python3.10/site-packages:${PYTHONPATH} /usr/bin/python3 setup.py develop --uninstall --editable --build-directory /home/osboxes/ros2_proj4a/build/simulation/build
+[1.454s] running develop
+[1.700s] Removing /home/osboxes/ros2_proj4a/install/simulation/lib/python3.10/site-packages/simulation.egg-link (link to .)
+[1.727s] Invoked command in '/home/osboxes/ros2_proj4a/build/simulation' returned '0': PYTHONPATH=/home/osboxes/ros2_proj4a/build/simulation/prefix_override:/home/osboxes/ros2_proj4a/install/simulation/lib/python3.10/site-packages:${PYTHONPATH} /usr/bin/python3 setup.py develop --uninstall --editable --build-directory /home/osboxes/ros2_proj4a/build/simulation/build
+[1.729s] Invoking command in '/home/osboxes/ros2_proj4a/src/simulation': PYTHONPATH=/home/osboxes/ros2_proj4a/build/simulation/prefix_override:/home/osboxes/ros2_proj4a/install/simulation/lib/python3.10/site-packages:${PYTHONPATH} /usr/bin/python3 setup.py egg_info --egg-base ../../build/simulation build --build-base /home/osboxes/ros2_proj4a/build/simulation/build install --record /home/osboxes/ros2_proj4a/build/simulation/install.log --single-version-externally-managed
+[2.105s] running egg_info
+[2.107s] writing ../../build/simulation/simulation.egg-info/PKG-INFO
+[2.109s] writing dependency_links to ../../build/simulation/simulation.egg-info/dependency_links.txt
+[2.111s] writing entry points to ../../build/simulation/simulation.egg-info/entry_points.txt
+[2.112s] writing requirements to ../../build/simulation/simulation.egg-info/requires.txt
+[2.113s] writing top-level names to ../../build/simulation/simulation.egg-info/top_level.txt
+[2.116s] reading manifest file '../../build/simulation/simulation.egg-info/SOURCES.txt'
+[2.118s] writing manifest file '../../build/simulation/simulation.egg-info/SOURCES.txt'
+[2.119s] running build
+[2.119s] running build_py
+[2.120s] creating /home/osboxes/ros2_proj4a/build/simulation/build
+[2.120s] creating /home/osboxes/ros2_proj4a/build/simulation/build/lib
+[2.122s] creating /home/osboxes/ros2_proj4a/build/simulation/build/lib/simulation
+[2.122s] copying simulation/disc_robot.py -> /home/osboxes/ros2_proj4a/build/simulation/build/lib/simulation
+[2.123s] copying simulation/proj4a.py -> /home/osboxes/ros2_proj4a/build/simulation/build/lib/simulation
+[2.123s] copying simulation/__init__.py -> /home/osboxes/ros2_proj4a/build/simulation/build/lib/simulation
+[2.124s] running install
+[2.125s] running install_lib
+[2.128s] creating /home/osboxes/ros2_proj4a/install/simulation/lib/python3.10/site-packages/simulation
+[2.128s] copying /home/osboxes/ros2_proj4a/build/simulation/build/lib/simulation/disc_robot.py -> /home/osboxes/ros2_proj4a/install/simulation/lib/python3.10/site-packages/simulation
+[2.129s] copying /home/osboxes/ros2_proj4a/build/simulation/build/lib/simulation/proj4a.py -> /home/osboxes/ros2_proj4a/install/simulation/lib/python3.10/site-packages/simulation
+[2.129s] copying /home/osboxes/ros2_proj4a/build/simulation/build/lib/simulation/__init__.py -> /home/osboxes/ros2_proj4a/install/simulation/lib/python3.10/site-packages/simulation
+[2.131s] byte-compiling /home/osboxes/ros2_proj4a/install/simulation/lib/python3.10/site-packages/simulation/disc_robot.py to disc_robot.cpython-310.pyc
+[2.131s] byte-compiling /home/osboxes/ros2_proj4a/install/simulation/lib/python3.10/site-packages/simulation/proj4a.py to proj4a.cpython-310.pyc
+[2.132s] byte-compiling /home/osboxes/ros2_proj4a/install/simulation/lib/python3.10/site-packages/simulation/__init__.py to __init__.cpython-310.pyc
+[2.132s] running install_data
+[2.134s] copying launch/launch.py -> /home/osboxes/ros2_proj4a/install/simulation/share/simulation
+[2.135s] running install_egg_info
+[2.137s] Copying ../../build/simulation/simulation.egg-info to /home/osboxes/ros2_proj4a/install/simulation/lib/python3.10/site-packages/simulation-0.0.0-py3.10.egg-info
+[2.138s] running install_scripts
+[2.159s] Installing project4a script to /home/osboxes/ros2_proj4a/install/simulation/lib/simulation
+[2.185s] writing list of installed files to '/home/osboxes/ros2_proj4a/build/simulation/install.log'
+[2.228s] Invoked command in '/home/osboxes/ros2_proj4a/src/simulation' returned '0': PYTHONPATH=/home/osboxes/ros2_proj4a/build/simulation/prefix_override:/home/osboxes/ros2_proj4a/install/simulation/lib/python3.10/site-packages:${PYTHONPATH} /usr/bin/python3 setup.py egg_info --egg-base ../../build/simulation build --build-base /home/osboxes/ros2_proj4a/build/simulation/build install --record /home/osboxes/ros2_proj4a/build/simulation/install.log --single-version-externally-managed
