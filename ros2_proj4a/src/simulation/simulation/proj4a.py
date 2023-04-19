@@ -50,9 +50,10 @@ class RobotSimulator(Node):
         self.vl = 0.0
         self.temp=[]
         self.vr = 0.0
-        self.x =  1.0
-        self.y = 2.2
-        self.theta = 2.35619
+        self.x =  1.5
+        self.y = 1.3
+        self.radius = 0.2
+        self.theta = 0.0
         self.curTime = time()
         self.prevTime = None
         self.delta_t = 0.1
@@ -131,12 +132,25 @@ class RobotSimulator(Node):
             #self.get_logger().info('Message from /VL: "%s"' % newState[2][0])
             self.theta=newState[2][0]
             # self.get_logger().info('Message from /VR: "%s"' % self.vr)
-        self.x=t.transform.translation.x
-        self.y=t.transform.translation.y
-        
+
+        testWallX = self.radius * cos(self.theta) + t.transform.translation.x
+        testWallY = self.radius * sin(self.theta) + t.transform.translation.y
+        index_x = int((testWallX) / 0.15)
+        index_y = int((testWallY) / 0.15)
+        if(self.temp2[index_y][index_x] == '#'):
+            self.vl = 0.0
+            self.vr = 0.0
+            t.transform.translation.x = self.x
+            t.transform.translation.y = self.y
+        else:
+            self.x=t.transform.translation.x
+            self.y=t.transform.translation.y
+            
 
         
         self.occupancy_grid.publish(self.map_pub)
+
+        
         self.tf_broadcaster.sendTransform(t)
 
     def createScan(self):
@@ -185,8 +199,8 @@ class RobotSimulator(Node):
                 # Transform the PointStamped message into the world frame
                
                 
-                index_x = int((point_in_world_frame.point.x ) / 0.3)
-                index_y = int((point_in_world_frame.point.y ) / 0.3)
+                index_x = int((point_in_world_frame.point.x ) / 0.15)
+                index_y = int((point_in_world_frame.point.y ) / 0.15)
                 if(self.temp2[index_y][index_x] == '#'):
                     msg.ranges.append(tangentLine)
                     # self.get_logger().info('X: "%s"' % temp_x)
@@ -201,7 +215,7 @@ class RobotSimulator(Node):
 
         
     def createMap(self):
-        urdf_file_name = 'brick.world'
+        urdf_file_name = 'pillars.world'
         urdf = os.path.join(
             get_package_share_directory('simulation'),
             urdf_file_name)
