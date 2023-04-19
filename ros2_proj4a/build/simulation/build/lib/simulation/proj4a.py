@@ -89,6 +89,9 @@ class RobotSimulator(Node):
         t.child_frame_id = 'base_link'
         
         l = 0.3
+
+        newState = None
+
         if(self.vr==self.vl):
             v = self.vr
             delta_x = v*self.delta_t
@@ -119,13 +122,20 @@ class RobotSimulator(Node):
             t.transform.translation.z = 0.0
 
             t.transform.rotation = euler_to_quaternion(0,0,newState[2][0])
-            #self.get_logger().info('Message from /VL: "%s"' % newState[2][0])
-            self.theta=newState[2][0]
+            # self.get_logger().info('Message from /VL: "%s"' % newState[2][0])
+            # self.theta=newState[2][0]
             # self.get_logger().info('Message from /VR: "%s"' % self.vr)
-        self.x=t.transform.translation.x
-        self.y=t.transform.translation.y
         
+        # Checking for collisions
+        # TODO: Get this from the robot URDF
+        # The 0.05 is there as padding or else a bit of the circle touches the wall a bit
 
+        robot_radius = 0.2 + 0.05 # Hardcoded for now!
+
+        if not self.collision_check(t.transform.translation.x, t.transform.translation.y, robot_radius):
+            self.x = t.transform.translation.x
+            self.y = t.transform.translation.y
+            self.theta = t.transform.rotation.z
         
         self.occupancy_grid.publish(self.map_pub)
         self.tf_broadcaster.sendTransform(t)
@@ -176,7 +186,28 @@ class RobotSimulator(Node):
         #         x+=1
         # occupancygrid_msg.info.width = x
         return occupancygrid_msg
+
+    def obstacle_in_robot(self, x, y, r):
+        distance = math.sqrt((self.x - x)**2 + (self.y - y)**2)
+
+        return distance <= r
+
+    def collision_check(self, new_x, new_y, r):
+        # Checks if a grid section is an obstacle or not
+        grid_x = self.map_pub.info.width
+        grid_y = self.map_pub.info.height
+
+        for cell_y in range(grid_y):
+            for cell_x in range(grid_x):
+                if self.map_pub.data[cell_y * self.map_pub.info.width + cell_x] > 0:
+                    x = cell_x * self.map_pub.info.resolution
+                    y = cell_y * self.map_pub.info.resolution
+
+                    if self.obstacle_in_robot(x, y, r):
+                        return True # A collision was found
         
+        return False
+
 
 def euler_to_quaternion(roll, pitch, yaw):
     qx = sin(roll/2) * cos(pitch/2) * cos(yaw/2) - cos(roll/2) * sin(pitch/2) * sin(yaw/2)

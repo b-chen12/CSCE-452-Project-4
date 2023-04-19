@@ -1,0 +1,26 @@
+[0.394s] Invoking command in '/home/vboxuser/Desktop/CSCE 452/CSCE-452-Project-4/ros2_proj4a/src/simulation': PYTHONPATH=/home/vboxuser/Desktop/CSCE 452/CSCE-452-Project-4/ros2_proj4a/build/simulation/prefix_override:/home/vboxuser/Desktop/CSCE 452/CSCE-452-Project-4/ros2_proj4a/install/simulation/lib/python3.10/site-packages:${PYTHONPATH} /usr/bin/python3 setup.py egg_info --egg-base ../../build/simulation build --build-base /home/vboxuser/Desktop/CSCE 452/CSCE-452-Project-4/ros2_proj4a/build/simulation/build install --record /home/vboxuser/Desktop/CSCE 452/CSCE-452-Project-4/ros2_proj4a/build/simulation/install.log --single-version-externally-managed
+[0.575s] running egg_info
+[0.575s] writing ../../build/simulation/simulation.egg-info/PKG-INFO
+[0.576s] writing dependency_links to ../../build/simulation/simulation.egg-info/dependency_links.txt
+[0.576s] writing entry points to ../../build/simulation/simulation.egg-info/entry_points.txt
+[0.576s] writing requirements to ../../build/simulation/simulation.egg-info/requires.txt
+[0.577s] writing top-level names to ../../build/simulation/simulation.egg-info/top_level.txt
+[0.578s] reading manifest file '../../build/simulation/simulation.egg-info/SOURCES.txt'
+[0.579s] writing manifest file '../../build/simulation/simulation.egg-info/SOURCES.txt'
+[0.579s] running build
+[0.579s] running build_py
+[0.579s] copying simulation/proj4a.py -> /home/vboxuser/Desktop/CSCE 452/CSCE-452-Project-4/ros2_proj4a/build/simulation/build/lib/simulation
+[0.579s] running install
+[0.580s] /usr/lib/python3/dist-packages/setuptools/command/install.py:34: SetuptoolsDeprecationWarning: setup.py install is deprecated. Use build and pip and other standards-based tools.
+[0.580s]   warnings.warn(
+[0.580s] running install_lib
+[0.580s] copying /home/vboxuser/Desktop/CSCE 452/CSCE-452-Project-4/ros2_proj4a/build/simulation/build/lib/simulation/proj4a.py -> /home/vboxuser/Desktop/CSCE 452/CSCE-452-Project-4/ros2_proj4a/install/simulation/lib/python3.10/site-packages/simulation
+[0.581s] byte-compiling /home/vboxuser/Desktop/CSCE 452/CSCE-452-Project-4/ros2_proj4a/install/simulation/lib/python3.10/site-packages/simulation/proj4a.py to proj4a.cpython-310.pyc
+[0.583s] running install_data
+[0.584s] running install_egg_info
+[0.585s] removing '/home/vboxuser/Desktop/CSCE 452/CSCE-452-Project-4/ros2_proj4a/install/simulation/lib/python3.10/site-packages/simulation-0.0.0-py3.10.egg-info' (and everything under it)
+[0.585s] Copying ../../build/simulation/simulation.egg-info to /home/vboxuser/Desktop/CSCE 452/CSCE-452-Project-4/ros2_proj4a/install/simulation/lib/python3.10/site-packages/simulation-0.0.0-py3.10.egg-info
+[0.586s] running install_scripts
+[0.600s] Installing proj4a script to /home/vboxuser/Desktop/CSCE 452/CSCE-452-Project-4/ros2_proj4a/install/simulation/lib/simulation
+[0.600s] writing list of installed files to '/home/vboxuser/Desktop/CSCE 452/CSCE-452-Project-4/ros2_proj4a/build/simulation/install.log'
+[0.632s] Invoked command in '/home/vboxuser/Desktop/CSCE 452/CSCE-452-Project-4/ros2_proj4a/src/simulation' returned '0': PYTHONPATH=/home/vboxuser/Desktop/CSCE 452/CSCE-452-Project-4/ros2_proj4a/build/simulation/prefix_override:/home/vboxuser/Desktop/CSCE 452/CSCE-452-Project-4/ros2_proj4a/install/simulation/lib/python3.10/site-packages:${PYTHONPATH} /usr/bin/python3 setup.py egg_info --egg-base ../../build/simulation build --build-base /home/vboxuser/Desktop/CSCE 452/CSCE-452-Project-4/ros2_proj4a/build/simulation/build install --record /home/vboxuser/Desktop/CSCE 452/CSCE-452-Project-4/ros2_proj4a/build/simulation/install.log --single-version-externally-managed
