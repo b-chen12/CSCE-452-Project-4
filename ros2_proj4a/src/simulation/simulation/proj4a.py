@@ -28,17 +28,19 @@ from sensor_msgs.msg import PointCloud
 from geometry_msgs.msg import Point32
 from std_msgs.msg import Float32MultiArray
 from rclpy.qos import QoSProfile
-
+from geometry_msgs.msg import PointStamped
 from math import sin, cos, pi
 import rclpy
 from rclpy.node import Node
 from rclpy.qos import QoSProfile
 from geometry_msgs.msg import Quaternion
 from sensor_msgs.msg import JointState
-from tf2_ros import TransformBroadcaster, TransformStamped
+from tf2_ros import TransformBroadcaster, TransformStamped, Buffer, TransformListener
+import tf2_ros
 import numpy as np
 from std_msgs.msg import Float64
 from time import time
+from tf2_geometry_msgs import do_transform_point
 
 
 class RobotSimulator(Node):
@@ -46,30 +48,37 @@ class RobotSimulator(Node):
     def __init__(self):
         super().__init__('RobotSimulator')
         self.vl = 0.0
+        self.temp=[]
         self.vr = 0.0
         self.x =  1.0
         self.y = 2.2
-        self.theta = 1.45
+        self.theta = 2.35619
         self.curTime = time()
         self.prevTime = None
         self.delta_t = 0.1
         self.map_pub = self.createMap()
 
         self.occupancy_grid = self.create_publisher(OccupancyGrid, '/map', 10)
+        self.laser_pub = self.create_publisher(LaserScan, '/scan', 10)
         self.vlsub = self.create_subscription(Float64, '/vl', self.listener_callback_vl, 10)
         self.vrsub = self.create_subscription(Float64, '/vr', self.listener_callback_vr, 10)
 
         self.tf_broadcaster = TransformBroadcaster(self)
         self.timer = self.create_timer(0.1, self.broadcast_timer_callback)
         self.oneSecondTimer = self.create_timer(1.0, self.set_vels)
+        self.scanTimer = self.create_timer(1.0, self.createScan)
+
+
+        self.tf_buffer = Buffer()
+        self.tf_listener = TransformListener(self.tf_buffer, self)
 
     def listener_callback_vl(self, msg):
         self.vl = msg.data
-        self.get_logger().info('Message from /vl: "%s"' % self.vl )
+      #  self.get_logger().info('Message from /vl: "%s"' % self.vl )
     
     def listener_callback_vr(self, msg):
         self.vr = msg.data
-        self.get_logger().info('Message from /vr: "%s"' % self.vr )
+      #  self.get_logger().info('Message from /vr: "%s"' % self.vr )
         
         self.oneSecondTimer.reset()
 
@@ -130,6 +139,66 @@ class RobotSimulator(Node):
         self.occupancy_grid.publish(self.map_pub)
         self.tf_broadcaster.sendTransform(t)
 
+    def createScan(self):
+        rate = 1
+        count = 25
+        angle_min = -1.8
+        angle_max = 1.8
+        range_min = 0.01
+        range_max = 40.0
+
+        if angle_min < angle_max:
+            total_angle = angle_max - angle_min
+        else:
+            total_angle = 2 * math.pi - angle_min + angle_max
+
+        # Calculate the angle increment needed to get num_angles evenly spaced angles
+        angle_increment = total_angle / count
+        self.get_logger().info('Message from /vl: "%s"' % angle_increment )
+
+        msg = LaserScan()
+        msg.header.stamp = self.get_clock().now().to_msg()
+        msg.header.frame_id = 'laser'
+        msg.angle_min = angle_min
+        msg.angle_max = angle_max
+        msg.angle_increment = angle_increment
+        msg.time_increment = 0.0
+        msg.scan_time = 1.0
+        msg.range_min = range_min
+        msg.range_max = range_max
+        tangentLine = 0.1
+        current_ang = angle_min
+        msg.ranges=[]
+        t = self.tf_buffer.lookup_transform('world', msg.header.frame_id,rclpy.time.Time(), timeout=rclpy.duration.Duration(seconds=7.0))
+        for i in range(count):
+            tangentLine = 0.01
+            while(tangentLine < range_max):
+                point = PointStamped()
+                point.header.frame_id = msg.header.frame_id
+
+                temp_x = tangentLine * (cos(current_ang))
+                temp_y = tangentLine * (sin(current_ang))
+                point.point.x=temp_x
+                point.point.y=temp_y
+                point.point.z = 0.0
+                point_in_world_frame = do_transform_point(point, t)
+                # Transform the PointStamped message into the world frame
+               
+                
+                index_x = int((point_in_world_frame.point.x ) / 0.3)
+                index_y = int((point_in_world_frame.point.y ) / 0.3)
+                if(self.temp2[index_y][index_x] == '#'):
+                    msg.ranges.append(tangentLine)
+                    # self.get_logger().info('X: "%s"' % temp_x)
+                    # self.get_logger().info('Y: "%s"' % temp_y)
+                    break
+                tangentLine+=0.01
+            current_ang+=angle_increment
+
+       # msg.ranges = [1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0]  # Example range data
+        self.laser_pub.publish(msg)
+        #self.get_logger().info("%s" % msg)
+
         
     def createMap(self):
         urdf_file_name = 'brick.world'
@@ -151,16 +220,23 @@ class RobotSimulator(Node):
         
         x = 0
         occupancygrid_msg.data = []
-        temp = mapinfo['map'].split('\n')
-        self.get_logger().info("%s" % temp)
-        occupancygrid_msg.info.width = len(temp[0])
-        occupancygrid_msg.info.height = len(temp)
-        for i in range(len(temp)):
-            for j in range(len(temp[0])):
-                if(temp[len(temp)-1-i][j] == '#'):
+        self.temp = mapinfo['map'].split('\n')
+      #  self.get_logger().info("%s" % self.temp)
+        occupancygrid_msg.info.width = len(self.temp[0])
+        occupancygrid_msg.info.height = len(self.temp)
+        self.temp2 = []
+
+        for i in range(len(self.temp)):
+            row=[]
+            for j in range(len(self.temp[0])):
+                if(self.temp[len(self.temp)-1-i][j] == '#'):
                     occupancygrid_msg.data.append(1)
-                elif(temp[len(temp)-1-i][j] == '.'):
+                    row.append('#')
+                elif(self.temp[len(self.temp)-1-i][j] == '.'):
                     occupancygrid_msg.data.append(0)
+                    row.append('.')
+            self.temp2.append(row)
+       # self.get_logger().info("%s" % self.temp2)
         # for i in range(len(mapinfo['map'])):
         #     if(mapinfo['map'][i] == '\n'):
         #         occupancygrid_msg.info.height+=1
