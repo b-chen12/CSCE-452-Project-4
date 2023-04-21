@@ -7,9 +7,14 @@
 /home/osboxes/ros2_proj4a/install/simulation/share/ament_index/resource_index/packages/simulation
 /home/osboxes/ros2_proj4a/install/simulation/share/simulation/package.xml
 /home/osboxes/ros2_proj4a/install/simulation/share/simulation/disc_robot.py
-/home/osboxes/ros2_proj4a/install/simulation/share/simulation/launch.py
 /home/osboxes/ros2_proj4a/install/simulation/share/simulation/brick.world
 /home/osboxes/ros2_proj4a/install/simulation/share/simulation/normal.robot
+/home/osboxes/ros2_proj4a/install/simulation/share/simulation/launch.py
+/home/osboxes/ros2_proj4a/install/simulation/share/simulation/ell.world
+/home/osboxes/ros2_proj4a/install/simulation/share/simulation/rectangle.world
+/home/osboxes/ros2_proj4a/install/simulation/share/simulation/open.world
+/home/osboxes/ros2_proj4a/install/simulation/share/simulation/bad.robot
+/home/osboxes/ros2_proj4a/install/simulation/share/simulation/ideal.robot
 /home/osboxes/ros2_proj4a/install/simulation/share/simulation/pillars.world
 /home/osboxes/ros2_proj4a/install/simulation/lib/python3.10/site-packages/simulation-0.0.0-py3.10.egg-info/zip-safe
 /home/osboxes/ros2_proj4a/install/simulation/lib/python3.10/site-packages/simulation-0.0.0-py3.10.egg-info/entry_points.txt

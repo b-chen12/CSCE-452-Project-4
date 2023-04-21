@@ -19,6 +19,11 @@ simulation/proj4a.py
 test/test_copyright.py
 test/test_flake8.py
 test/test_pep257.py
+urdf/bad.robot
 urdf/brick.world
+urdf/ell.world
+urdf/ideal.robot
 urdf/normal.robot
+urdf/open.world
 urdf/pillars.world
+urdf/rectangle.world
