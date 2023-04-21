@@ -26,19 +26,23 @@ class RobotSimulator(Node):
     # This node publishes onto the three separate topics
     def __init__(self):
         super().__init__('RobotSimulator')
-        urdf_file_name = 'bad.robot' # self.get_parameter('robot_name').value
+        
+        # File name to get robot info and then store info in self.robot_info
+        urdf_file_name = 'normal.robot' # self.get_parameter('robot_name').value
         urdf = os.path.join(
             get_package_share_directory('simulation'),
             urdf_file_name)
         self.robot_info = load_disc_robot(urdf)
 
-        urdf_file_name2 = 'ell.world' # self.get_parameter('map_name').value
+        # File name to get world info and then store info in self.map_info
+        urdf_file_name2 = 'pillars.world' # self.get_parameter('map_name').value
         urdf2 = os.path.join(
             get_package_share_directory('simulation'),
             urdf_file_name2)
-        self.mapinfo = load_map(urdf2)
+        self.map_info = load_map(urdf2)
 
 
+        # Store all necessary information for lidar scan
         self.rate = self.robot_info['laser']['rate']
         self.count = self.robot_info['laser']['count']
         self.angle_min = self.robot_info['laser']['angle_min']
@@ -46,62 +50,73 @@ class RobotSimulator(Node):
         self.range_min = self.robot_info['laser']['range_min']
         self.range_max = self.robot_info['laser']['range_max']
 
+        # Get error for left and right wheel velocity
         self.errorl = np.random.normal(loc=1.0, scale=np.sqrt(self.robot_info['wheels']['error_variance_left']))
         self.errorr = np.random.normal(loc=1.0, scale=np.sqrt(self.robot_info['wheels']['error_variance_right']))
 
+        # Store various robot starting information
         self.vl = 0.0
-        self.temp=[]
         self.vr = 0.0
-        self.x =  self.mapinfo['initial_pose'][0]
-        self.y = self.mapinfo['initial_pose'][1]
-        self.theta = self.mapinfo['initial_pose'][2]
+        self.x =  self.map_info['initial_pose'][0]
+        self.y = self.map_info['initial_pose'][1]
+        self.theta = self.map_info['initial_pose'][2]
         self.radius = self.robot_info['body']['radius']
+        self.temp=[]
         
         self.curTime = time()
         self.prevTime = None
-        self.delta_t = 0.1
-        self.map_pub = self.createMap()
+        self.delta_t = 0.1 # Time between movements
+        self.map_pub = self.createMap() # store the information to publish map so we don't have to keep iterating through the information
 
+        # Publish occupancy grid of the map and laser scan; Subscribe to left and right wheel velocities
         self.occupancy_grid = self.create_publisher(OccupancyGrid, '/map', 10)
         self.laser_pub = self.create_publisher(LaserScan, '/scan', 10)
         self.vlsub = self.create_subscription(Float64, '/vl', self.listener_callback_vl, 10)
         self.vrsub = self.create_subscription(Float64, '/vr', self.listener_callback_vr, 10)
 
+        # Set up tf2 broadcaster
         self.tf_broadcaster = TransformBroadcaster(self)
-        self.timer = self.create_timer(0.001, self.broadcast_timer_callback)
-        self.oneSecondTimer = self.create_timer(1.0, self.set_vels)
-        self.scanTimer = self.create_timer(self.rate, self.createScan)
-        self.errorTimer = self.create_timer(self.robot_info['wheels']['error_update_rate'], self.updateError)
+        self.timer = self.create_timer(0.001, self.broadcast_timer_callback) # Broadcast every 0.001 seconds
+        self.oneSecondTimer = self.create_timer(1.0, self.set_vels) # Timer that sets velocity to 0 if it gets called; is reset everytime new velocity is brough received
+        self.scanTimer = self.create_timer(self.rate, self.createScan) # Timer for how often we scan using the rate
+        self.errorTimer = self.create_timer(self.robot_info['wheels']['error_update_rate'], self.updateError) # Timer for how often we update the error value for the wheels
 
+        # Set up tf2 buffer and transform listener
         self.tf_buffer = Buffer()
         self.tf_listener = TransformListener(self.tf_buffer, self)
 
+    # Get new left wheel velocity, apply appropriate error
     def listener_callback_vl(self, msg):
         self.vl = msg.data * self.errorl
         self.get_logger().info('Message from /vl: "%s"' % self.vl )
     
+    # Get new right wheel velocity, apply appropriate error
     def listener_callback_vr(self, msg):
         self.vr = msg.data * self.errorr
         self.get_logger().info('Message from /vr: "%s"' % self.vr )
         
-        self.oneSecondTimer.reset()
+        self.oneSecondTimer.reset() # New velocity obtained, reset timer to stop robot
 
+    # Stop robot if going one second without new velocity
     def set_vels(self):
         self.vl = 0.0
         self.vr = 0.0
 
+    # Broadcast to convert between world and base_link frames
     def broadcast_timer_callback(self):
         self.curTime = time()
         if self.prevTime is not None:
-            self.delta_t = self.curTime - self.prevTime
-            #self.get_logger().info('Message from /scan: "%s"' % self.delta_t )
+            self.delta_t = self.curTime - self.prevTime # Get time between movements
         self.prevTime = self.curTime
+        
+        # Set frame information
         t = TransformStamped()
         t.header.stamp = self.get_clock().now().to_msg()
         t.header.frame_id = 'world'
         t.child_frame_id = 'base_link'
         
-        l = self.robot_info['wheels']['distance']
+        l = self.robot_info['wheels']['distance'] # distance between wheels
+        # Checks if velocities are same, goes in a straight line, using V = Change in distance / Change in time then getting the x and y coordinates for the new position
         if(self.vr==self.vl):
             v = self.vr
             delta_x = v*self.delta_t
@@ -113,33 +128,29 @@ class RobotSimulator(Node):
 
             t.transform.rotation = self.euler_to_quaternion(0,0,self.theta)
 
+        # Not in a straight line, need Differential drive state transitions
         else:
-            R = ((l/2)*(self.vr+self.vl)/(self.vr-self.vl))
-            # self.get_logger().info('Message from /R: "%s"' % R)
-            c = [self.x-R*sin(self.theta), self.y + R*cos(self.theta)]
-            w = (self.vr-self.vl)/l
-            # self.get_logger().info('Message from /c: "%s"' % c)
-            # self.get_logger().info('Message from /w: "%s"' % w)
-            one = [[cos(w*self.delta_t), -1*sin(w*self.delta_t), 0],[sin(w*self.delta_t),cos(w*self.delta_t),0],[0,0,1]]
-            two = [[self.x-c[0]],[self.y-c[1]],[self.theta]]
-            three = [[c[0]],[c[1]],[w*self.delta_t]]
+            R = ((l/2)*(self.vr+self.vl)/(self.vr-self.vl)) # Distance from robot center to ICC
+            c = [self.x-R*sin(self.theta), self.y + R*cos(self.theta)] # ICC location
+            w = (self.vr-self.vl)/l # angular vel
+            one = [[cos(w*self.delta_t), -1*sin(w*self.delta_t), 0],[sin(w*self.delta_t),cos(w*self.delta_t),0],[0,0,1]] # First part of updating state (Using New State equation in Lecture 3 notes)
+            two = [[self.x-c[0]],[self.y-c[1]],[self.theta]] # Second part
+            three = [[c[0]],[c[1]],[w*self.delta_t]] # Third part
             newState2 = np.array(one) @ np.array(two)
-            
-            newState = np.array(newState2) + np.array(three)
-            # self.get_logger().info('Message from /scan: "%s"' % newState )    
+            newState = np.array(newState2) + np.array(three)  
             t.transform.translation.x = newState[0][0]
             t.transform.translation.y = newState[1][0]
             t.transform.translation.z = 0.0
 
             t.transform.rotation = self.euler_to_quaternion(0,0,newState[2][0])
-            #self.get_logger().info('Message from /VL: "%s"' % newState[2][0])
             self.theta=newState[2][0]
-            # self.get_logger().info('Message from /VR: "%s"' % self.vr)
 
+        # Check if the robot is about to run into a wall
         testWallX = self.radius * cos(self.theta) + t.transform.translation.x
         testWallY = self.radius * sin(self.theta) + t.transform.translation.y
-        index_x = int((testWallX) / self.mapinfo['resolution'])
-        index_y = int((testWallY) / self.mapinfo['resolution'])
+        index_x = int((testWallX) / self.map_info['resolution'])
+        index_y = int((testWallY) / self.map_info['resolution'])
+        # Stop if it is about to run into a wall, otherwise, move forward using new state
         if(self.temp2[index_y][index_x] == '#'):
             self.vl = 0.0
             self.vr = 0.0
@@ -152,16 +163,14 @@ class RobotSimulator(Node):
         self.occupancy_grid.publish(self.map_pub)
         self.tf_broadcaster.sendTransform(t)
 
+    # Function to get the laser scan data of the robot
     def createScan(self):
+        # Get angle_increment so that they are evenly spaced
         if self.angle_min < self.angle_max:
             total_angle = self.angle_max - self.angle_min
-        else:
-            total_angle = 2 * math.pi - self.angle_min + self.angle_max
-
-        # Calculate the angle increment needed to get num_angles evenly spaced angles
         angle_increment = total_angle / self.count
-        # self.get_logger().info('Message from /vl: "%s"' % angle_increment )
 
+        # Set up laser scan info that was read from file earlier
         msg = LaserScan()
         msg.header.stamp = self.get_clock().now().to_msg()
         msg.header.frame_id = 'laser'
@@ -172,44 +181,48 @@ class RobotSimulator(Node):
         msg.scan_time = 1.0
         msg.range_min = self.range_min
         msg.range_max = self.range_max
-        tangentLine = self.range_min
+        magnitude = self.range_min
         current_ang = self.angle_min
         msg.ranges=[]
-        t = self.tf_buffer.lookup_transform('world', msg.header.frame_id,rclpy.time.Time(), timeout=rclpy.duration.Duration(seconds=7.0))
+        # Get last transform so that we can convert into world frame
+        laser_t = self.tf_buffer.lookup_transform('world', msg.header.frame_id,rclpy.time.Time(), timeout=rclpy.duration.Duration(seconds=7.0))
         
+        # For count amount of times, find the magnitude of the range; find range by slowly incrementing distance until reaches a wall
         for i in range(self.count):
-            tangentLine = self.range_min
-            while(tangentLine < self.range_max):
+            magnitude = self.range_min
+            while(magnitude < self.range_max):
                 point = PointStamped()
                 point.header.frame_id = msg.header.frame_id
-
-                temp_x = tangentLine * (cos(current_ang))
-                temp_y = tangentLine * (sin(current_ang))
+                temp_x = magnitude * (cos(current_ang))
+                temp_y = magnitude * (sin(current_ang))
                 point.point.x=temp_x
                 point.point.y=temp_y
                 point.point.z = 0.0
-                point_in_world_frame = do_transform_point(point, t)
+                point_in_world_frame = do_transform_point(point, laser_t)
                 # Transform the PointStamped message into the world frame
                
-                index_x = int((point_in_world_frame.point.x ) / self.mapinfo['resolution'])
-                index_y = int((point_in_world_frame.point.y ) / self.mapinfo['resolution'])
+                # Convert from map to index of positions that we got when reading in the map
+                index_x = int((point_in_world_frame.point.x ) / self.map_info['resolution'])
+                index_y = int((point_in_world_frame.point.y ) / self.map_info['resolution'])
                 if(self.temp2[index_y][index_x] == '#'):
+                    # Add appropriate error
                     error = np.random.normal(loc=0.0, scale=np.sqrt(self.robot_info['laser']['error_variance']), size=1)
                     fail = np.random.rand()
+
+                    # Check if reading failed based on error
                     if(fail < self.robot_info['laser']['fail_probability']):
                         msg.ranges.append(np.nan)
                     else:
-                        msg.ranges.append(tangentLine+error)
+                        msg.ranges.append(magnitude+error)
                     break
-                tangentLine+=0.05
+                magnitude+=0.05
             current_ang+=angle_increment
 
 
         self.laser_pub.publish(msg)
-        #self.get_logger().info("%s" % msg)
-
         
     def createMap(self):
+        # Set various occupancy grid attributes
         occupancygrid_msg = OccupancyGrid()
         occupancygrid_msg.header = Header()
         occupancygrid_msg.header.frame_id = 'world'
@@ -220,15 +233,15 @@ class RobotSimulator(Node):
         occupancygrid_msg.info.origin.orientation.y = 0.0
         occupancygrid_msg.info.origin.orientation.z = 0.0
         occupancygrid_msg.info.origin.orientation.w = 1.0
-        occupancygrid_msg.info.resolution = self.mapinfo['resolution']
+        occupancygrid_msg.info.resolution = self.map_info['resolution']
         
         occupancygrid_msg.data = []
-        self.temp = self.mapinfo['map'].split('\n')
-      #  self.get_logger().info("%s" % self.temp)
+        self.temp = self.map_info['map'].split('\n') # Split based on newline
         occupancygrid_msg.info.width = len(self.temp[0])
         occupancygrid_msg.info.height = len(self.temp)-1
         self.temp2 = []
 
+        # Go through and add values from the string into the list we made so we can have a representaiton of the map
         for i in range(1, len(self.temp)):
             row=[]
             for j in range(len(self.temp[0])):
@@ -242,16 +255,16 @@ class RobotSimulator(Node):
 
         return occupancygrid_msg
         
+    # Update error when timer goes off for the wheels
     def updateError(self):
         self.errorl = np.random.normal(loc=1.0, scale=np.sqrt(self.robot_info['wheels']['error_variance_left']))
         self.errorr = np.random.normal(loc=1.0, scale=np.sqrt(self.robot_info['wheels']['error_variance_right']))
     
-    def euler_to_quaternion(self, roll, pitch, yaw):
-        qx = sin(roll/2) * cos(pitch/2) * cos(yaw/2) - cos(roll/2) * sin(pitch/2) * sin(yaw/2)
-        qy = cos(roll/2) * sin(pitch/2) * cos(yaw/2) + sin(roll/2) * cos(pitch/2) * sin(yaw/2)
-        qz = cos(roll/2) * cos(pitch/2) * sin(yaw/2) - sin(roll/2) * sin(pitch/2) * cos(yaw/2)
-        qw = cos(roll/2) * cos(pitch/2) * cos(yaw/2) + sin(roll/2) * sin(pitch/2) * sin(yaw/2)
-        return Quaternion(x=qx, y=qy, z=qz, w=qw)
+    # Need to convert from euler coordinates to quaternion so that we can transform correctly
+    def euler_to_quaternion(self, x, y, z):
+        qz = cos(x/2) * cos(y/2) * sin(z/2) - sin(x/2) * sin(y/2) * cos(z/2)
+        qw = cos(x/2) * cos(y/2) * cos(z/2) + sin(x/2) * sin(y/2) * sin(z/2)
+        return Quaternion(x=0.0, y=0.0, z=qz, w=qw)
 
 
 
