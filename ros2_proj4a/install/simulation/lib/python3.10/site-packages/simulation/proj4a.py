@@ -28,18 +28,14 @@ class RobotSimulator(Node):
         super().__init__('RobotSimulator')
         
         # File name to get robot info and then store info in self.robot_info
-        urdf_file_name = 'normal.robot' # self.get_parameter('robot_name').value
-        urdf = os.path.join(
-            get_package_share_directory('simulation'),
-            urdf_file_name)
-        self.robot_info = load_disc_robot(urdf)
+        file_name = 'normal.robot' # self.get_parameter('robot_name').value
+        u = os.path.join(get_package_share_directory('simulation'),file_name)
+        self.robot_info = load_disc_robot(u)
 
         # File name to get world info and then store info in self.map_info
-        urdf_file_name2 = 'pillars.world' # self.get_parameter('map_name').value
-        urdf2 = os.path.join(
-            get_package_share_directory('simulation'),
-            urdf_file_name2)
-        self.map_info = load_map(urdf2)
+        file_name2 = 'brick.world' # self.get_parameter('map_name').value
+        u2 = os.path.join(get_package_share_directory('simulation'),file_name2)
+        self.map_info = load_map(u2)
 
 
         # Store all necessary information for lidar scan
@@ -126,7 +122,7 @@ class RobotSimulator(Node):
             t.transform.translation.y = y_change + self.y
             t.transform.translation.z = 0.0
 
-            t.transform.rotation = self.euler_to_quaternion(0,0,self.theta)
+            t.transform.rotation = self.getQuaternion(0,0,self.theta)
 
         # Not in a straight line, need Differential drive state transitions
         else:
@@ -142,23 +138,38 @@ class RobotSimulator(Node):
             t.transform.translation.y = newState[1][0]
             t.transform.translation.z = 0.0
 
-            t.transform.rotation = self.euler_to_quaternion(0,0,newState[2][0])
+            t.transform.rotation = self.getQuaternion(0,0,newState[2][0])
             self.theta=newState[2][0]
 
-        # Check if the robot is about to run into a wall
-        testWallX = self.radius * cos(self.theta) + t.transform.translation.x
-        testWallY = self.radius * sin(self.theta) + t.transform.translation.y
-        index_x = int((testWallX) / self.map_info['resolution'])
-        index_y = int((testWallY) / self.map_info['resolution'])
-        # Stop if it is about to run into a wall, otherwise, move forward using new state
-        if(self.temp2[index_y][index_x] == '#'):
-            self.vl = 0.0
-            self.vr = 0.0
-            t.transform.translation.x = self.x
-            t.transform.translation.y = self.y
-        else:
-            self.x=t.transform.translation.x
-            self.y=t.transform.translation.y
+        angles = [0,0.785398,1.5708,2.35619,3.14159,3.92699,4.71239,5.49779]
+        found = False
+        for a in angles:
+            test_x = self.radius * cos(a) + t.transform.translation.x
+            test_y = self.radius * sin(a) + t.transform.translation.y
+            index_x = int((test_x) / self.map_info['resolution'])
+            index_y = int((test_y) / self.map_info['resolution'])
+            if(self.temp2[index_y][index_x] == '#'):
+                self.vl = 0.0
+                self.vr = 0.0
+                t.transform.translation.x = self.x
+                t.transform.translation.y = self.y
+                found = True
+        
+        if found == False:
+            # Check if the robot is about to run into a wall
+            testWallX = self.radius * cos(self.theta) + t.transform.translation.x
+            testWallY = self.radius * sin(self.theta) + t.transform.translation.y
+            index_x = int((testWallX) / self.map_info['resolution'])
+            index_y = int((testWallY) / self.map_info['resolution'])
+            # Stop if it is about to run into a wall, otherwise, move forward using new state
+            if(self.temp2[index_y][index_x] == '#'):
+                self.vl = 0.0
+                self.vr = 0.0
+                t.transform.translation.x = self.x
+                t.transform.translation.y = self.y
+            else:
+                self.x=t.transform.translation.x
+                self.y=t.transform.translation.y
             
         self.occupancy_grid.publish(self.map_pub)
         self.tf_broadcaster.sendTransform(t)
@@ -181,7 +192,7 @@ class RobotSimulator(Node):
         msg.scan_time = 1.0
         msg.range_min = self.range_min
         msg.range_max = self.range_max
-        tangentLine = self.range_min
+        magnitude = self.range_min
         current_ang = self.angle_min
         msg.ranges=[]
         # Get last transform so that we can convert into world frame
@@ -261,7 +272,7 @@ class RobotSimulator(Node):
         self.errorr = np.random.normal(loc=1.0, scale=np.sqrt(self.robot_info['wheels']['error_variance_right']))
     
     # Need to convert from euler coordinates to quaternion so that we can transform correctly
-    def euler_to_quaternion(self, x, y, z):
+    def getQuaternion(self, x, y, z):
         qz = cos(x/2) * cos(y/2) * sin(z/2) - sin(x/2) * sin(y/2) * cos(z/2)
         qw = cos(x/2) * cos(y/2) * cos(z/2) + sin(x/2) * sin(y/2) * sin(z/2)
         return Quaternion(x=0.0, y=0.0, z=qz, w=qw)
