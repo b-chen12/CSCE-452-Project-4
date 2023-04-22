@@ -28,12 +28,12 @@ def generate_launch_description():
     bag_in_arg = DeclareLaunchArgument(
                             'bag_in',
                             default_value='bags/input1')
-    urdf_file_name_robot_str = 'normal.robot'
-    urdf = os.path.join(
+    file_name_robot_str = 'ideal.robot'
+    u = os.path.join(
         get_package_share_directory('simulation'),
-        urdf_file_name_robot_str)
+        file_name_robot_str)
     
-    robot = load_disc_robot(urdf)
+    robot = load_disc_robot(u)
     play_bag = ExecuteProcess(cmd = ['ros2', 'bag', 'play', bag_in])
     return LaunchDescription([
         robot_name_arg,
