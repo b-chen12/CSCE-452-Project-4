@@ -25,6 +25,8 @@ urdf/bad.robot
 urdf/brick.world
 urdf/cave.world
 urdf/ell.world
+urdf/example.world
+urdf/example1.world
 urdf/ideal.robot
 urdf/normal.robot
 urdf/open.world

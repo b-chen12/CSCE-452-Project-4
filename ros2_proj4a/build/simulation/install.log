@@ -14,11 +14,13 @@
 /home/osboxes/ros2_proj4a/install/simulation/share/simulation/brick.world
 /home/osboxes/ros2_proj4a/install/simulation/share/simulation/normal.robot
 /home/osboxes/ros2_proj4a/install/simulation/share/simulation/launch.py
+/home/osboxes/ros2_proj4a/install/simulation/share/simulation/example1.world
 /home/osboxes/ros2_proj4a/install/simulation/share/simulation/ell.world
 /home/osboxes/ros2_proj4a/install/simulation/share/simulation/cave.world
 /home/osboxes/ros2_proj4a/install/simulation/share/simulation/rectangle.world
 /home/osboxes/ros2_proj4a/install/simulation/share/simulation/open.world
 /home/osboxes/ros2_proj4a/install/simulation/share/simulation/windy.world
+/home/osboxes/ros2_proj4a/install/simulation/share/simulation/example.world
 /home/osboxes/ros2_proj4a/install/simulation/share/simulation/bad.robot
 /home/osboxes/ros2_proj4a/install/simulation/share/simulation/ideal.robot
 /home/osboxes/ros2_proj4a/install/simulation/share/simulation/pillars.world

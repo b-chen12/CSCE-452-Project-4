@@ -53,6 +53,8 @@ class NavController(Node):
                 vs.append(cur_vector)
             cur_angle += angle_increment
         average_vector = np.mean(vs, axis=0)
+        magnitude = average_vector[1]**2 + average_vector[0]**2
+        self.get_logger().info('vector: "%s"' % magnitude )
         d = np.arctan2(average_vector[1], average_vector[0])
 
         R = self.wheel_distance / d / 2
@@ -61,6 +63,11 @@ class NavController(Node):
         t_msg = Twist()
         t_msg.linear.x = self.v
         t_msg.angular.z = angular_v
+
+        if(magnitude <= 0.065):
+            t_msg.linear.x = 0.0
+            t_msg.angular.z = 3.0
+        
         self.vel_pub.publish(t_msg)
 
 def main(args=None):
