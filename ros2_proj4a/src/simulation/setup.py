@@ -29,6 +29,8 @@ setup(
     entry_points={
         'console_scripts': [
             'proj4a = simulation.proj4a:main',
+            'nav_controller = simulation.nav_controller:main',
+            'vel_translator = simulation.vel_translator:main',
         ],
     },
 )

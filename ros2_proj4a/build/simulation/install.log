@@ -1,9 +1,13 @@
 /home/osboxes/ros2_proj4a/install/simulation/lib/python3.10/site-packages/simulation/disc_robot.py
 /home/osboxes/ros2_proj4a/install/simulation/lib/python3.10/site-packages/simulation/proj4a.py
 /home/osboxes/ros2_proj4a/install/simulation/lib/python3.10/site-packages/simulation/__init__.py
+/home/osboxes/ros2_proj4a/install/simulation/lib/python3.10/site-packages/simulation/nav_controller.py
+/home/osboxes/ros2_proj4a/install/simulation/lib/python3.10/site-packages/simulation/vel_translator.py
 /home/osboxes/ros2_proj4a/install/simulation/lib/python3.10/site-packages/simulation/__pycache__/disc_robot.cpython-310.pyc
 /home/osboxes/ros2_proj4a/install/simulation/lib/python3.10/site-packages/simulation/__pycache__/proj4a.cpython-310.pyc
 /home/osboxes/ros2_proj4a/install/simulation/lib/python3.10/site-packages/simulation/__pycache__/__init__.cpython-310.pyc
+/home/osboxes/ros2_proj4a/install/simulation/lib/python3.10/site-packages/simulation/__pycache__/nav_controller.cpython-310.pyc
+/home/osboxes/ros2_proj4a/install/simulation/lib/python3.10/site-packages/simulation/__pycache__/vel_translator.cpython-310.pyc
 /home/osboxes/ros2_proj4a/install/simulation/share/ament_index/resource_index/packages/simulation
 /home/osboxes/ros2_proj4a/install/simulation/share/simulation/package.xml
 /home/osboxes/ros2_proj4a/install/simulation/share/simulation/disc_robot.py
@@ -11,8 +15,10 @@
 /home/osboxes/ros2_proj4a/install/simulation/share/simulation/normal.robot
 /home/osboxes/ros2_proj4a/install/simulation/share/simulation/launch.py
 /home/osboxes/ros2_proj4a/install/simulation/share/simulation/ell.world
+/home/osboxes/ros2_proj4a/install/simulation/share/simulation/cave.world
 /home/osboxes/ros2_proj4a/install/simulation/share/simulation/rectangle.world
 /home/osboxes/ros2_proj4a/install/simulation/share/simulation/open.world
+/home/osboxes/ros2_proj4a/install/simulation/share/simulation/windy.world
 /home/osboxes/ros2_proj4a/install/simulation/share/simulation/bad.robot
 /home/osboxes/ros2_proj4a/install/simulation/share/simulation/ideal.robot
 /home/osboxes/ros2_proj4a/install/simulation/share/simulation/pillars.world
@@ -23,4 +29,6 @@
 /home/osboxes/ros2_proj4a/install/simulation/lib/python3.10/site-packages/simulation-0.0.0-py3.10.egg-info/PKG-INFO
 /home/osboxes/ros2_proj4a/install/simulation/lib/python3.10/site-packages/simulation-0.0.0-py3.10.egg-info/SOURCES.txt
 /home/osboxes/ros2_proj4a/install/simulation/lib/python3.10/site-packages/simulation-0.0.0-py3.10.egg-info/top_level.txt
+/home/osboxes/ros2_proj4a/install/simulation/lib/simulation/nav_controller
 /home/osboxes/ros2_proj4a/install/simulation/lib/simulation/proj4a
+/home/osboxes/ros2_proj4a/install/simulation/lib/simulation/vel_translator

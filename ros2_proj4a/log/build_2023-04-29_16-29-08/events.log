@@ -1,0 +1,86 @@
+[0.000000] (-) TimerEvent: {}
+[0.003315] (simulation) JobQueued: {'identifier': 'simulation', 'dependencies': OrderedDict()}
+[0.003409] (simulation) JobStarted: {'identifier': 'simulation'}
+[0.100244] (-) TimerEvent: {}
+[0.201852] (-) TimerEvent: {}
+[0.302939] (-) TimerEvent: {}
+[0.403749] (-) TimerEvent: {}
+[0.504244] (-) TimerEvent: {}
+[0.604704] (-) TimerEvent: {}
+[0.705373] (-) TimerEvent: {}
+[0.806174] (-) TimerEvent: {}
+[0.907856] (-) TimerEvent: {}
+[1.008935] (-) TimerEvent: {}
+[1.109680] (-) TimerEvent: {}
+[1.213908] (-) TimerEvent: {}
+[1.315988] (-) TimerEvent: {}
+[1.419174] (-) TimerEvent: {}
+[1.521262] (-) TimerEvent: {}
+[1.621847] (-) TimerEvent: {}
+[1.722246] (-) TimerEvent: {}
+[1.822791] (-) TimerEvent: {}
+[1.923017] (-) TimerEvent: {}
+[2.023851] (-) TimerEvent: {}
+[2.125810] (-) TimerEvent: {}
+[2.226862] (-) TimerEvent: {}
+[2.236784] (simulation) Command: {'cmd': ['/usr/bin/python3', 'setup.py', 'develop', '--uninstall', '--editable', '--build-directory', '/home/osboxes/ros2_proj4a/build/simulation/build'], 'cwd': '/home/osboxes/ros2_proj4a/build/simulation', 'env': {'LESSOPEN': '| /usr/bin/lesspipe %s', 'USER': 'osboxes', 'XDG_SESSION_TYPE': 'wayland', 'SHLVL': '1', 'LD_LIBRARY_PATH': '/opt/ros/humble/opt/rviz_ogre_vendor/lib:/opt/ros/humble/lib/x86_64-linux-gnu:/opt/ros/humble/lib', 'HOME': '/home/osboxes', 'OLDPWD': '/home/osboxes/ros2_proj4a/src', 'DESKTOP_SESSION': 'ubuntu', 'ROS_PYTHON_VERSION': '3', 'GNOME_SHELL_SESSION_MODE': 'ubuntu', 'GTK_MODULES': 'gail:atk-bridge', 'DBUS_STARTER_BUS_TYPE': 'session', 'SYSTEMD_EXEC_PID': '2432', 'DBUS_SESSION_BUS_ADDRESS': 'unix:path=/run/user/1000/bus,guid=9bc55308df8af36634350ca0644d645a', 'COLORTERM': 'truecolor', 'IM_CONFIG_PHASE': '1', 'WAYLAND_DISPLAY': 'wayland-0', 'COLCON_PREFIX_PATH': '/home/osboxes/ros2_proj4a/install:/home/osboxes/install', 'ROS_DISTRO': 'humble', 'LOGNAME': 'osboxes', '_': '/usr/bin/colcon', 'ROS_VERSION': '2', 'XDG_SESSION_CLASS': 'user', 'USERNAME': 'osboxes', 'TERM': 'xterm-256color', 'GNOME_DESKTOP_SESSION_ID': 'this-is-deprecated', 'ROS_LOCALHOST_ONLY': '1', 'PATH': '/opt/ros/humble/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin:/snap/bin', 'SESSION_MANAGER': 'local/osboxes:@/tmp/.ICE-unix/2432,unix/osboxes:/tmp/.ICE-unix/2432', 'XDG_MENU_PREFIX': 'gnome-', 'GNOME_TERMINAL_SCREEN': '/org/gnome/Terminal/screen/0fc16a8f_0052_4aec_bb23_65e80ed4a1db', 'GNOME_SETUP_DISPLAY': ':1', 'XDG_RUNTIME_DIR': '/run/user/1000', 'DISPLAY': ':0', 'LANG': 'en_US.UTF-8', 'XDG_CURRENT_DESKTOP': 'ubuntu:GNOME', 'XMODIFIERS': '@im=ibus', 'XDG_SESSION_DESKTOP': 'ubuntu', 'XAUTHORITY': '/run/user/1000/.mutter-Xwaylandauth.4B6731', 'LS_COLORS': 'rs=0:di=01;34:ln=01;36:mh=00:pi=40;33:so=01;35:do=01;35:bd=40;33;01:cd=40;33;01:or=40;31;01:mi=00:su=37;41:sg=30;43:ca=30;41:tw=30;42:ow=34;42:st=37;44:ex=01;32:*.tar=01;31:*.tgz=01;31:*.arc=01;31:*.arj=01;31:*.taz=01;31:*.lha=01;31:*.lz4=01;31:*.lzh=01;31:*.lzma=01;31:*.tlz=01;31:*.txz=01;31:*.tzo=01;31:*.t7z=01;31:*.zip=01;31:*.z=01;31:*.dz=01;31:*.gz=01;31:*.lrz=01;31:*.lz=01;31:*.lzo=01;31:*.xz=01;31:*.zst=01;31:*.tzst=01;31:*.bz2=01;31:*.bz=01;31:*.tbz=01;31:*.tbz2=01;31:*.tz=01;31:*.deb=01;31:*.rpm=01;31:*.jar=01;31:*.war=01;31:*.ear=01;31:*.sar=01;31:*.rar=01;31:*.alz=01;31:*.ace=01;31:*.zoo=01;31:*.cpio=01;31:*.7z=01;31:*.rz=01;31:*.cab=01;31:*.wim=01;31:*.swm=01;31:*.dwm=01;31:*.esd=01;31:*.jpg=01;35:*.jpeg=01;35:*.mjpg=01;35:*.mjpeg=01;35:*.gif=01;35:*.bmp=01;35:*.pbm=01;35:*.pgm=01;35:*.ppm=01;35:*.tga=01;35:*.xbm=01;35:*.xpm=01;35:*.tif=01;35:*.tiff=01;35:*.png=01;35:*.svg=01;35:*.svgz=01;35:*.mng=01;35:*.pcx=01;35:*.mov=01;35:*.mpg=01;35:*.mpeg=01;35:*.m2v=01;35:*.mkv=01;35:*.webm=01;35:*.webp=01;35:*.ogm=01;35:*.mp4=01;35:*.m4v=01;35:*.mp4v=01;35:*.vob=01;35:*.qt=01;35:*.nuv=01;35:*.wmv=01;35:*.asf=01;35:*.rm=01;35:*.rmvb=01;35:*.flc=01;35:*.avi=01;35:*.fli=01;35:*.flv=01;35:*.gl=01;35:*.dl=01;35:*.xcf=01;35:*.xwd=01;35:*.yuv=01;35:*.cgm=01;35:*.emf=01;35:*.ogv=01;35:*.ogx=01;35:*.aac=00;36:*.au=00;36:*.flac=00;36:*.m4a=00;36:*.mid=00;36:*.midi=00;36:*.mka=00;36:*.mp3=00;36:*.mpc=00;36:*.ogg=00;36:*.ra=00;36:*.wav=00;36:*.oga=00;36:*.opus=00;36:*.spx=00;36:*.xspf=00;36:', 'GNOME_TERMINAL_SERVICE': ':1.138', 'SSH_AGENT_LAUNCHER': 'gnome-keyring', 'SSH_AUTH_SOCK': '/run/user/1000/keyring/ssh', 'ROS_DOMAIN_ID': '71', 'AMENT_PREFIX_PATH': '/home/osboxes/ros2_proj4a/install/simulation:/home/osboxes/install/simulation:/home/osboxes/install/project3:/opt/ros/humble', 'SHELL': '/bin/bash', 'QT_ACCESSIBILITY': '1', 'GDMSESSION': 'ubuntu', 'LESSCLOSE': '/usr/bin/lesspipe %s %s', 'QT_IM_MODULE': 'ibus', 'PWD': '/home/osboxes/ros2_proj4a/build/simulation', 'LC_ALL': 'en_US.UTF-8', 'XDG_CONFIG_DIRS': '/etc/xdg/xdg-ubuntu:/etc/xdg', 'DBUS_STARTER_ADDRESS': 'unix:path=/run/user/1000/bus,guid=9bc55308df8af36634350ca0644d645a', 'XDG_DATA_DIRS': '/usr/share/ubuntu:/usr/local/share/:/usr/share/:/var/lib/snapd/desktop', 'PYTHONPATH': '/home/osboxes/ros2_proj4a/build/simulation/prefix_override:/home/osboxes/ros2_proj4a/install/simulation/lib/python3.10/site-packages:/home/osboxes/ros2_proj4a/install/simulation/lib/python3.10/site-packages:/home/osboxes/install/simulation/lib/python3.10/site-packages:/home/osboxes/install/project3/lib/python3.10/site-packages:/opt/ros/humble/lib/python3.10/site-packages:/opt/ros/humble/local/lib/python3.10/dist-packages', 'COLCON': '1', 'VTE_VERSION': '6800'}, 'shell': False}
+[2.327374] (-) TimerEvent: {}
+[2.429002] (-) TimerEvent: {}
+[2.530493] (-) TimerEvent: {}
+[2.633184] (-) TimerEvent: {}
+[2.733870] (-) TimerEvent: {}
+[2.835347] (-) TimerEvent: {}
+[2.937035] (-) TimerEvent: {}
+[3.038288] (-) TimerEvent: {}
+[3.139087] (-) TimerEvent: {}
+[3.239717] (-) TimerEvent: {}
+[3.312899] (simulation) StdoutLine: {'line': b'running develop\n'}
+[3.339886] (-) TimerEvent: {}
+[3.440568] (-) TimerEvent: {}
+[3.541140] (-) TimerEvent: {}
+[3.641947] (-) TimerEvent: {}
+[3.742678] (-) TimerEvent: {}
+[3.847629] (-) TimerEvent: {}
+[3.948917] (-) TimerEvent: {}
+[4.049637] (-) TimerEvent: {}
+[4.086006] (simulation) CommandEnded: {'returncode': 0}
+[4.088196] (simulation) Command: {'cmd': ['/usr/bin/python3', 'setup.py', 'egg_info', '--egg-base', '../../build/simulation', 'build', '--build-base', '/home/osboxes/ros2_proj4a/build/simulation/build', 'install', '--record', '/home/osboxes/ros2_proj4a/build/simulation/install.log', '--single-version-externally-managed'], 'cwd': '/home/osboxes/ros2_proj4a/src/simulation', 'env': {'LESSOPEN': '| /usr/bin/lesspipe %s', 'USER': 'osboxes', 'XDG_SESSION_TYPE': 'wayland', 'SHLVL': '1', 'LD_LIBRARY_PATH': '/opt/ros/humble/opt/rviz_ogre_vendor/lib:/opt/ros/humble/lib/x86_64-linux-gnu:/opt/ros/humble/lib', 'HOME': '/home/osboxes', 'OLDPWD': '/home/osboxes/ros2_proj4a/src', 'DESKTOP_SESSION': 'ubuntu', 'ROS_PYTHON_VERSION': '3', 'GNOME_SHELL_SESSION_MODE': 'ubuntu', 'GTK_MODULES': 'gail:atk-bridge', 'DBUS_STARTER_BUS_TYPE': 'session', 'SYSTEMD_EXEC_PID': '2432', 'DBUS_SESSION_BUS_ADDRESS': 'unix:path=/run/user/1000/bus,guid=9bc55308df8af36634350ca0644d645a', 'COLORTERM': 'truecolor', 'IM_CONFIG_PHASE': '1', 'WAYLAND_DISPLAY': 'wayland-0', 'COLCON_PREFIX_PATH': '/home/osboxes/ros2_proj4a/install:/home/osboxes/install', 'ROS_DISTRO': 'humble', 'LOGNAME': 'osboxes', '_': '/usr/bin/colcon', 'ROS_VERSION': '2', 'XDG_SESSION_CLASS': 'user', 'USERNAME': 'osboxes', 'TERM': 'xterm-256color', 'GNOME_DESKTOP_SESSION_ID': 'this-is-deprecated', 'ROS_LOCALHOST_ONLY': '1', 'PATH': '/opt/ros/humble/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin:/snap/bin', 'SESSION_MANAGER': 'local/osboxes:@/tmp/.ICE-unix/2432,unix/osboxes:/tmp/.ICE-unix/2432', 'XDG_MENU_PREFIX': 'gnome-', 'GNOME_TERMINAL_SCREEN': '/org/gnome/Terminal/screen/0fc16a8f_0052_4aec_bb23_65e80ed4a1db', 'GNOME_SETUP_DISPLAY': ':1', 'XDG_RUNTIME_DIR': '/run/user/1000', 'DISPLAY': ':0', 'LANG': 'en_US.UTF-8', 'XDG_CURRENT_DESKTOP': 'ubuntu:GNOME', 'XMODIFIERS': '@im=ibus', 'XDG_SESSION_DESKTOP': 'ubuntu', 'XAUTHORITY': '/run/user/1000/.mutter-Xwaylandauth.4B6731', 'LS_COLORS': 'rs=0:di=01;34:ln=01;36:mh=00:pi=40;33:so=01;35:do=01;35:bd=40;33;01:cd=40;33;01:or=40;31;01:mi=00:su=37;41:sg=30;43:ca=30;41:tw=30;42:ow=34;42:st=37;44:ex=01;32:*.tar=01;31:*.tgz=01;31:*.arc=01;31:*.arj=01;31:*.taz=01;31:*.lha=01;31:*.lz4=01;31:*.lzh=01;31:*.lzma=01;31:*.tlz=01;31:*.txz=01;31:*.tzo=01;31:*.t7z=01;31:*.zip=01;31:*.z=01;31:*.dz=01;31:*.gz=01;31:*.lrz=01;31:*.lz=01;31:*.lzo=01;31:*.xz=01;31:*.zst=01;31:*.tzst=01;31:*.bz2=01;31:*.bz=01;31:*.tbz=01;31:*.tbz2=01;31:*.tz=01;31:*.deb=01;31:*.rpm=01;31:*.jar=01;31:*.war=01;31:*.ear=01;31:*.sar=01;31:*.rar=01;31:*.alz=01;31:*.ace=01;31:*.zoo=01;31:*.cpio=01;31:*.7z=01;31:*.rz=01;31:*.cab=01;31:*.wim=01;31:*.swm=01;31:*.dwm=01;31:*.esd=01;31:*.jpg=01;35:*.jpeg=01;35:*.mjpg=01;35:*.mjpeg=01;35:*.gif=01;35:*.bmp=01;35:*.pbm=01;35:*.pgm=01;35:*.ppm=01;35:*.tga=01;35:*.xbm=01;35:*.xpm=01;35:*.tif=01;35:*.tiff=01;35:*.png=01;35:*.svg=01;35:*.svgz=01;35:*.mng=01;35:*.pcx=01;35:*.mov=01;35:*.mpg=01;35:*.mpeg=01;35:*.m2v=01;35:*.mkv=01;35:*.webm=01;35:*.webp=01;35:*.ogm=01;35:*.mp4=01;35:*.m4v=01;35:*.mp4v=01;35:*.vob=01;35:*.qt=01;35:*.nuv=01;35:*.wmv=01;35:*.asf=01;35:*.rm=01;35:*.rmvb=01;35:*.flc=01;35:*.avi=01;35:*.fli=01;35:*.flv=01;35:*.gl=01;35:*.dl=01;35:*.xcf=01;35:*.xwd=01;35:*.yuv=01;35:*.cgm=01;35:*.emf=01;35:*.ogv=01;35:*.ogx=01;35:*.aac=00;36:*.au=00;36:*.flac=00;36:*.m4a=00;36:*.mid=00;36:*.midi=00;36:*.mka=00;36:*.mp3=00;36:*.mpc=00;36:*.ogg=00;36:*.ra=00;36:*.wav=00;36:*.oga=00;36:*.opus=00;36:*.spx=00;36:*.xspf=00;36:', 'GNOME_TERMINAL_SERVICE': ':1.138', 'SSH_AGENT_LAUNCHER': 'gnome-keyring', 'SSH_AUTH_SOCK': '/run/user/1000/keyring/ssh', 'ROS_DOMAIN_ID': '71', 'AMENT_PREFIX_PATH': '/home/osboxes/ros2_proj4a/install/simulation:/home/osboxes/install/simulation:/home/osboxes/install/project3:/opt/ros/humble', 'SHELL': '/bin/bash', 'QT_ACCESSIBILITY': '1', 'GDMSESSION': 'ubuntu', 'LESSCLOSE': '/usr/bin/lesspipe %s %s', 'QT_IM_MODULE': 'ibus', 'PWD': '/home/osboxes/ros2_proj4a/build/simulation', 'LC_ALL': 'en_US.UTF-8', 'XDG_CONFIG_DIRS': '/etc/xdg/xdg-ubuntu:/etc/xdg', 'DBUS_STARTER_ADDRESS': 'unix:path=/run/user/1000/bus,guid=9bc55308df8af36634350ca0644d645a', 'XDG_DATA_DIRS': '/usr/share/ubuntu:/usr/local/share/:/usr/share/:/var/lib/snapd/desktop', 'PYTHONPATH': '/home/osboxes/ros2_proj4a/build/simulation/prefix_override:/home/osboxes/ros2_proj4a/install/simulation/lib/python3.10/site-packages:/home/osboxes/ros2_proj4a/install/simulation/lib/python3.10/site-packages:/home/osboxes/install/simulation/lib/python3.10/site-packages:/home/osboxes/install/project3/lib/python3.10/site-packages:/opt/ros/humble/lib/python3.10/site-packages:/opt/ros/humble/local/lib/python3.10/dist-packages', 'COLCON': '1', 'VTE_VERSION': '6800'}, 'shell': False}
+[4.150045] (-) TimerEvent: {}
+[4.252169] (-) TimerEvent: {}
+[4.353837] (-) TimerEvent: {}
+[4.454686] (-) TimerEvent: {}
+[4.555248] (-) TimerEvent: {}
+[4.655773] (-) TimerEvent: {}
+[4.757238] (-) TimerEvent: {}
+[4.857736] (-) TimerEvent: {}
+[4.958637] (-) TimerEvent: {}
+[5.032984] (simulation) StdoutLine: {'line': b'running egg_info\n'}
+[5.035353] (simulation) StdoutLine: {'line': b'writing ../../build/simulation/simulation.egg-info/PKG-INFO\n'}
+[5.040197] (simulation) StdoutLine: {'line': b'writing dependency_links to ../../build/simulation/simulation.egg-info/dependency_links.txt\n'}
+[5.041583] (simulation) StdoutLine: {'line': b'writing entry points to ../../build/simulation/simulation.egg-info/entry_points.txt\n'}
+[5.041882] (simulation) StdoutLine: {'line': b'writing requirements to ../../build/simulation/simulation.egg-info/requires.txt\n'}
+[5.042037] (simulation) StdoutLine: {'line': b'writing top-level names to ../../build/simulation/simulation.egg-info/top_level.txt\n'}
+[5.052763] (simulation) StdoutLine: {'line': b"reading manifest file '../../build/simulation/simulation.egg-info/SOURCES.txt'\n"}
+[5.053932] (simulation) StdoutLine: {'line': b"writing manifest file '../../build/simulation/simulation.egg-info/SOURCES.txt'\n"}
+[5.054342] (simulation) StdoutLine: {'line': b'running build\n'}
+[5.054510] (simulation) StdoutLine: {'line': b'running build_py\n'}
+[5.055121] (simulation) StdoutLine: {'line': b'copying simulation/nav_controller.py -> /home/osboxes/ros2_proj4a/build/simulation/build/lib/simulation\n'}
+[5.057289] (simulation) StdoutLine: {'line': b'running install\n'}
+[5.058930] (-) TimerEvent: {}
+[5.061347] (simulation) StdoutLine: {'line': b'running install_lib\n'}
+[5.062019] (simulation) StdoutLine: {'line': b'copying /home/osboxes/ros2_proj4a/build/simulation/build/lib/simulation/nav_controller.py -> /home/osboxes/ros2_proj4a/install/simulation/lib/python3.10/site-packages/simulation\n'}
+[5.063045] (simulation) StdoutLine: {'line': b'byte-compiling /home/osboxes/ros2_proj4a/install/simulation/lib/python3.10/site-packages/simulation/nav_controller.py to nav_controller.cpython-310.pyc\n'}
+[5.068265] (simulation) StdoutLine: {'line': b'running install_data\n'}
+[5.070980] (simulation) StdoutLine: {'line': b'running install_egg_info\n'}
+[5.079854] (simulation) StdoutLine: {'line': b"removing '/home/osboxes/ros2_proj4a/install/simulation/lib/python3.10/site-packages/simulation-0.0.0-py3.10.egg-info' (and everything under it)\n"}
+[5.081349] (simulation) StdoutLine: {'line': b'Copying ../../build/simulation/simulation.egg-info to /home/osboxes/ros2_proj4a/install/simulation/lib/python3.10/site-packages/simulation-0.0.0-py3.10.egg-info\n'}
+[5.088983] (simulation) StdoutLine: {'line': b'running install_scripts\n'}
+[5.152521] (simulation) StdoutLine: {'line': b'Installing nav_controller script to /home/osboxes/ros2_proj4a/install/simulation/lib/simulation\n'}
+[5.155773] (simulation) StdoutLine: {'line': b'Installing proj4a script to /home/osboxes/ros2_proj4a/install/simulation/lib/simulation\n'}
+[5.156796] (simulation) StdoutLine: {'line': b'Installing vel_translator script to /home/osboxes/ros2_proj4a/install/simulation/lib/simulation\n'}
+[5.158941] (simulation) StdoutLine: {'line': b"writing list of installed files to '/home/osboxes/ros2_proj4a/build/simulation/install.log'\n"}
+[5.159262] (-) TimerEvent: {}
+[5.259585] (simulation) CommandEnded: {'returncode': 0}
+[5.265785] (-) TimerEvent: {}
+[5.325863] (simulation) JobEnded: {'identifier': 'simulation', 'rc': 0}
+[5.328669] (-) EventReactorShutdown: {}
