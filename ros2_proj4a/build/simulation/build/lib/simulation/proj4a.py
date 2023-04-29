@@ -33,7 +33,7 @@ class RobotSimulator(Node):
         self.robot_info = load_disc_robot(u)
 
         # File name to get world info and then store info in self.map_info
-        file_name2 = 'brick.world' # self.get_parameter('map_name').value
+        file_name2 = 'windy.world' # self.get_parameter('map_name').value
         u2 = os.path.join(get_package_share_directory('simulation'),file_name2)
         self.map_info = load_map(u2)
 
@@ -84,12 +84,12 @@ class RobotSimulator(Node):
     # Get new left wheel velocity, apply appropriate error
     def listener_callback_vl(self, msg):
         self.vl = msg.data * self.errorl
-        self.get_logger().info('Message from /vl: "%s"' % self.vl )
+        # self.get_logger().info('Message from /vl: "%s"' % self.vl )
     
     # Get new right wheel velocity, apply appropriate error
     def listener_callback_vr(self, msg):
         self.vr = msg.data * self.errorr
-        self.get_logger().info('Message from /vr: "%s"' % self.vr )
+        # self.get_logger().info('Message from /vr: "%s"' % self.vr )
         
         self.oneSecondTimer.reset() # New velocity obtained, reset timer to stop robot
 
@@ -226,7 +226,7 @@ class RobotSimulator(Node):
                     else:
                         msg.ranges.append(magnitude+error)
                     break
-                magnitude+=0.05
+                magnitude+=0.1
             current_ang+=angle_increment
 
 

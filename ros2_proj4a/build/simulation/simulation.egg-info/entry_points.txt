@@ -1,3 +1,5 @@
 [console_scripts]
+nav_controller = simulation.nav_controller:main
 proj4a = simulation.proj4a:main
+vel_translator = simulation.vel_translator:main
 
