@@ -25,6 +25,9 @@ class VelocityTranslator(Node):
         self.wheel_dist = None # distance between wheels, need to figure out how to get this
 
     def listener_callback(self, msg):
+        self.get_logger().info('Linear X: "%s"' % msg.linear.x)
+        self.get_logger().info('Angular Y: "%s"' % msg.angular.z)
+        
         linear_x = msg.linear.x
         angular_z = msg.angular.z
 
