@@ -29,13 +29,15 @@ class VelController(Node):
         super().__init__('VelController')
         
         # File name to get robot info and then store info in self.robot_info
-        file_name = 'normal.robot' # self.get_parameter('robot_name').value
+        file_name = 'normal.robot' 
         u = os.path.join(get_package_share_directory('simulation'),file_name)
         self.robot_info = load_disc_robot(u)
         self.wheel_distance = self.robot_info['wheels']['distance']
 
+        # Receives messages from the navigation controller; subscribes to /cmd_vel of type Twist
         self.vel_sub = self.create_subscription(Twist, '/cmd_vel', self.listener_callback, 10)
 
+        # Publishes velocities for the left and right wheel, of type Float64
         self.vl_pub = self.create_publisher(Float64, '/vl', 10)
         self.vr_pub = self.create_publisher(Float64, '/vr', 10)
 
@@ -43,9 +45,13 @@ class VelController(Node):
         vl_msg = Float64()
         vr_msg = Float64()
 
+        # Formula: vr = w ( R + l/2 ), vl = w (R - l/2 )
+        # Obtain R
         R = msg.linear.x / msg.angular.z
 
+        # Obtain vl
         vl = msg.angular.z * (R - self.wheel_distance / 2)
+        # Obtain vr
         vr = msg.angular.z * (R + self.wheel_distance / 2)
         
         vl_msg.data = vl

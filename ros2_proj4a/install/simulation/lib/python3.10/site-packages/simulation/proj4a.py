@@ -33,7 +33,7 @@ class RobotSimulator(Node):
         self.robot_info = load_disc_robot(u)
 
         # File name to get world info and then store info in self.map_info
-        file_name2 = 'example.world' # self.get_parameter('map_name').value
+        file_name2 = 'zigzag.world' # self.get_parameter('map_name').value
         u2 = os.path.join(get_package_share_directory('simulation'),file_name2)
         self.map_info = load_map(u2)
 

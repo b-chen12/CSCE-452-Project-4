@@ -24,12 +24,14 @@ test/test_pep257.py
 urdf/bad.robot
 urdf/brick.world
 urdf/cave.world
+urdf/donut.world
 urdf/ell.world
-urdf/example.world
 urdf/example1.world
 urdf/ideal.robot
 urdf/normal.robot
 urdf/open.world
 urdf/pillars.world
 urdf/rectangle.world
+urdf/snake.world
 urdf/windy.world
+urdf/zigzag.world
